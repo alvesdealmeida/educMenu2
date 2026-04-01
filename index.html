@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>🎓 Jogos Educacionais II</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #1e3a5f;
+    --navy2:  #15294a;
+    --teal:   #0ea5e9;
+    --amber:  #f59e0b;
+    --green:  #10b981;
+    --coral:  #f43f5e;
+    --purple: #8b5cf6;
+    --orange: #f97316;
+    --rose:   #e11d48;
+    --indigo: #6366f1;
+    --cyan:   #06b6d4;
+    --cream:  #fef9f0;
+    --white:  #ffffff;
+    --text:   #1e293b;
+    --muted:  #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 4px 24px rgba(30,58,95,0.10);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 55%, #1a3d6e 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 44px 24px 80px;
+    text-align: center;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle,rgba(14,165,233,0.16) 0%,transparent 70%);
+    top:-220px; right:-100px; pointer-events:none;
+  }
+  .hero::after {
+    content:'';
+    position:absolute; width:300px; height:300px; border-radius:50%;
+    background:radial-gradient(circle,rgba(245,158,11,0.13) 0%,transparent 70%);
+    bottom:-100px; left:-60px; pointer-events:none;
+  }
+  .hero-dots {
+    position:absolute; inset:0;
+    background-image:radial-gradient(circle,rgba(255,255,255,0.07) 1px,transparent 1px);
+    background-size:28px 28px; pointer-events:none;
+  }
+  .float-items { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+  .fi {
+    position:absolute; font-size:1.6rem; opacity:0.13;
+    animation:floatItem var(--d,6s) ease-in-out infinite;
+    animation-delay:var(--dl,0s);
+  }
+  @keyframes floatItem {
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%    { transform:translateY(-16px) rotate(8deg); }
+  }
+
+  .hero-inner { position:relative; z-index:2; max-width:780px; margin:0 auto; }
+
+  /* Badge de volume */
+  .vol-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:10px;
+  }
+  .vol-pill {
+    background:rgba(245,158,11,0.2);
+    border:1px solid rgba(245,158,11,0.45);
+    color:var(--amber);
+    border-radius:20px; padding:5px 16px;
+    font-size:0.72rem; font-weight:800; letter-spacing:0.1em;
+  }
+
+  .logo-badge {
+    display:inline-flex; align-items:center; gap:10px;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:40px; padding:8px 22px;
+    font-size:0.8rem; font-weight:700;
+    color:rgba(255,255,255,0.85);
+    letter-spacing:0.12em; text-transform:uppercase;
+    margin-bottom:22px; backdrop-filter:blur(6px);
+  }
+  .logo-badge span { font-size:1rem; }
+
+  h1 {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(1.9rem, 5.5vw, 3.2rem);
+    font-weight:800; color:#fff;
+    line-height:1.18; margin-bottom:14px;
+    letter-spacing:-0.01em;
+  }
+  h1 em {
+    font-style:normal;
+    background:linear-gradient(90deg, var(--amber), #fde68a);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .hero-sub {
+    font-size:1rem; color:rgba(255,255,255,0.62);
+    font-weight:600; max-width:500px; margin:0 auto 32px;
+    line-height:1.65;
+  }
+
+  /* Stats */
+  .stats-row {
+    display:flex; justify-content:center; gap:16px; flex-wrap:wrap;
+    margin-bottom:28px;
+  }
+  .stat-pill {
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:30px; padding:10px 20px;
+    display:flex; align-items:center; gap:8px;
+    backdrop-filter:blur(6px);
+  }
+  .stat-pill .icon { font-size:1.15rem; }
+  .stat-pill .val  { font-size:1rem; font-weight:800; color:#fff; }
+  .stat-pill .lbl  { font-size:0.7rem; color:rgba(255,255,255,0.58); font-weight:600; margin-top:1px; }
+
+  /* Botão voltar ao menu I */
+  .back-btn {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(245,158,11,0.18);
+    border:2px solid rgba(245,158,11,0.55);
+    border-radius:40px; padding:10px 24px;
+    color:var(--amber);
+    font-family:'Nunito', sans-serif;
+    font-size:0.88rem; font-weight:800;
+    text-decoration:none; letter-spacing:0.04em;
+    backdrop-filter:blur(6px);
+    transition:background .22s, box-shadow .22s, transform .2s;
+  }
+  .back-btn:hover {
+    background:rgba(245,158,11,0.32);
+    box-shadow:0 0 24px rgba(245,158,11,0.35);
+    transform:translateY(-2px);
+  }
+  .back-btn .arrow { font-size:1rem; }
+
+  /* Onda */
+  .wave-sep {
+    display:block; width:100%; height:56px;
+    margin-top:-1px;
+    background:var(--cream);
+    clip-path:ellipse(56% 100% at 50% 100%);
+  }
+
+  /* ── CORPO ────────────────────────────────── */
+  .main {
+    max-width:1160px; margin:0 auto;
+    padding:0 24px 80px;
+    position:relative; top:-30px;
+  }
+
+  /* Busca */
+  .search-bar {
+    display:flex; align-items:center;
+    background:var(--white);
+    border:2px solid var(--border);
+    border-radius:16px; padding:0 20px;
+    box-shadow:var(--shadow); margin-bottom:26px;
+    transition:border-color .25s, box-shadow .25s;
+  }
+  .search-bar:focus-within {
+    border-color:var(--teal);
+    box-shadow:0 0 0 4px rgba(14,165,233,0.12), var(--shadow);
+  }
+  .search-bar .si { font-size:1.2rem; color:var(--muted); flex-shrink:0; }
+  .search-bar input {
+    flex:1; border:none; outline:none; background:transparent;
+    font-family:'Nunito', sans-serif;
+    font-size:1rem; font-weight:600; color:var(--text);
+    padding:15px 14px;
+  }
+  .search-bar input::placeholder { color:#94a3b8; font-weight:600; }
+
+  /* Section label */
+  .section-label {
+    font-size:0.74rem; font-weight:800;
+    color:var(--muted); letter-spacing:0.12em;
+    text-transform:uppercase; margin-bottom:12px;
+  }
+
+  /* Tabs — scroll horizontal no mobile */
+  .tabs-wrap {
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin-bottom:32px;
+    padding-bottom:4px;
+  }
+  .tabs-wrap::-webkit-scrollbar { display:none; }
+  .tabs {
+    display:flex; gap:9px;
+    width:max-content; /* impede quebra de linha */
+    min-width:100%;
+  }
+  .tab {
+    display:flex; align-items:center; gap:6px;
+    padding:10px 18px; border-radius:40px;
+    border:2px solid var(--border);
+    background:var(--white); color:var(--muted);
+    font-family:'Nunito', sans-serif;
+    font-size:0.84rem; font-weight:800;
+    cursor:pointer; white-space:nowrap;
+    transition:all .22s;
+    box-shadow:0 2px 8px rgba(0,0,0,0.04);
+    flex-shrink:0;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+    min-height:44px; /* alvo tátil mínimo */
+  }
+  .tab:hover {
+    border-color:var(--teal); color:var(--teal);
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(14,165,233,0.14);
+  }
+  .tab.active {
+    background:var(--navy); border-color:var(--navy); color:#fff;
+    box-shadow:0 6px 20px rgba(30,58,95,0.25);
+    transform:translateY(-2px);
+  }
+  .tab .tab-count {
+    border-radius:20px; padding:2px 7px; font-size:0.7rem;
+  }
+  .tab.active .tab-count { background:rgba(255,255,255,0.2); }
+  .tab:not(.active) .tab-count { background:var(--border); color:var(--muted); }
+
+  /* Heading da grade */
+  .games-heading {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:20px; flex-wrap:wrap; gap:8px;
+  }
+  .games-heading h2 {
+    font-family:'Playfair Display', serif;
+    font-size:1.45rem; font-weight:700; color:var(--navy);
+  }
+  .count-badge {
+    font-size:0.78rem; font-weight:800; color:var(--muted);
+    background:var(--border); border-radius:20px; padding:4px 12px;
+  }
+
+  /* Grade */
+  .games-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(270px, 1fr));
+    gap:22px;
+  }
+
+  /* Card */
+  .game-card {
+    background:var(--white);
+    border-radius:20px; overflow:hidden;
+    text-decoration:none; display:flex; flex-direction:column;
+    box-shadow:0 2px 16px rgba(30,58,95,0.08);
+    border:2px solid transparent;
+    transition:transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s, border-color .28s;
+    animation:cardIn .45s ease both;
+    position:relative;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+  }
+  .game-card:hover {
+    transform:translateY(-8px) scale(1.015);
+    box-shadow:0 20px 50px rgba(30,58,95,0.15);
+    border-color:var(--accent, var(--teal));
+  }
+  .game-card:active { transform:scale(.98); }
+  @keyframes cardIn {
+    from{ opacity:0; transform:translateY(22px) scale(.97); }
+    to  { opacity:1; transform:translateY(0)    scale(1); }
+  }
+
+  /* Thumbnail */
+  .card-thumb {
+    height:140px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .card-thumb::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,0.28) 100%);
+  }
+  .card-thumb .big-emoji {
+    font-size:3.8rem;
+    filter:drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+    animation:emojiFloat var(--ef-dur,3.5s) ease-in-out infinite;
+    animation-delay:var(--ef-dl,0s);
+    position:relative; z-index:1;
+  }
+  @keyframes emojiFloat {
+    0%,100%{ transform:translateY(0) scale(1); }
+    50%    { transform:translateY(-9px) scale(1.07); }
+  }
+
+  /* Badges */
+  .subject-badge {
+    position:absolute; top:12px; left:12px; z-index:2;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.28);
+    color:#fff; border-radius:8px;
+    font-size:0.66rem; font-weight:800;
+    padding:4px 10px; letter-spacing:0.07em; text-transform:uppercase;
+    white-space:nowrap; max-width:calc(100% - 24px); overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .play-tag {
+    position:absolute; bottom:12px; right:12px; z-index:2;
+    background:rgba(0,0,0,0.35); backdrop-filter:blur(6px);
+    color:rgba(255,255,255,0.92); border-radius:20px;
+    font-size:0.68rem; font-weight:700; padding:3px 10px;
+    display:flex; align-items:center; gap:4px;
+  }
+
+  /* Body */
+  .card-body {
+    padding:18px 20px 16px;
+    display:flex; flex-direction:column; flex:1;
+  }
+  .card-title {
+    font-size:1rem; font-weight:900;
+    color:var(--navy); margin-bottom:6px;
+    letter-spacing:-0.01em;
+  }
+  .card-desc {
+    font-size:0.83rem; font-weight:600;
+    color:var(--muted); line-height:1.55;
+    flex:1; margin-bottom:15px;
+  }
+
+  /* Footer do card */
+  .card-footer {
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+  }
+  .card-tag {
+    font-size:0.7rem; font-weight:800;
+    border-radius:20px; padding:4px 11px;
+    letter-spacing:0.05em; white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis; max-width:60%;
+  }
+  .card-btn {
+    display:flex; align-items:center; gap:5px;
+    background:var(--navy); color:#fff;
+    border:none; border-radius:10px;
+    padding:9px 16px;
+    font-family:'Nunito', sans-serif;
+    font-size:0.82rem; font-weight:800;
+    cursor:pointer; white-space:nowrap;
+    transition:background .2s, transform .18s;
+    letter-spacing:0.04em;
+    min-height:40px;
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .card-btn:hover { transform:scale(1.05); }
+  .card-btn svg { width:12px; height:12px; fill:#fff; flex-shrink:0; }
+
+  /* Empty */
+  .empty {
+    grid-column:1/-1; text-align:center; padding:80px 20px;
+    color:var(--muted);
+  }
+  .empty .ei { font-size:3.5rem; display:block; margin-bottom:14px; }
+  .empty h3  { font-size:1.15rem; font-weight:800; color:var(--navy); margin-bottom:8px; }
+  .empty p   { font-size:0.88rem; font-weight:600; }
+
+  /* Footer */
+  footer {
+    background:var(--navy2); color:rgba(255,255,255,0.5);
+    text-align:center; padding:28px 24px;
+    font-size:0.82rem; font-weight:700; letter-spacing:0.04em;
+  }
+  footer strong { color:rgba(255,255,255,0.85); }
+
+  /* ── TABLET (601–900px) ───────────────────── */
+  @media (min-width:601px) and (max-width:900px) {
+    .hero { padding:36px 20px 72px; }
+    .main { padding:0 20px 64px; }
+    .games-grid { grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:18px; }
+    h1 { font-size:clamp(1.8rem, 4.5vw, 2.6rem); }
+    .card-thumb { height:130px; }
+    .card-thumb .big-emoji { font-size:3.4rem; }
+    .stat-pill { padding:8px 16px; }
+    .stat-pill .val { font-size:0.92rem; }
+  }
+
+  /* ── CELULAR (≤600px) ─────────────────────── */
+  @media (max-width:600px) {
+    .hero { padding:30px 16px 68px; }
+    .main { padding:0 14px 60px; top:-24px; }
+
+    h1 { font-size:clamp(1.6rem, 7vw, 2rem); }
+    .hero-sub { font-size:0.9rem; }
+
+    .stats-row { gap:10px; }
+    .stat-pill { padding:8px 14px; }
+    .stat-pill .val { font-size:0.88rem; }
+    .stat-pill .lbl { font-size:0.64rem; }
+
+    .back-btn { font-size:0.8rem; padding:9px 18px; }
+
+    .search-bar { border-radius:12px; }
+    .search-bar input { font-size:0.92rem; padding:13px 12px; }
+
+    .games-grid {
+      grid-template-columns:repeat(2, 1fr);
+      gap:12px;
+    }
+
+    .card-thumb { height:110px; }
+    .card-thumb .big-emoji { font-size:2.8rem; }
+    .subject-badge { font-size:0.6rem; padding:3px 8px; }
+    .play-tag { font-size:0.6rem; padding:2px 8px; }
+
+    .card-body { padding:14px 14px 12px; }
+    .card-title { font-size:0.88rem; }
+    .card-desc {
+      font-size:0.76rem;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+      margin-bottom:12px;
+    }
+    .card-tag { font-size:0.62rem; padding:3px 9px; }
+    .card-btn { font-size:0.74rem; padding:8px 12px; }
+  }
+
+  /* ── CELULAR MUITO PEQUENO (≤360px) ──────── */
+  @media (max-width:360px) {
+    .games-grid { grid-template-columns:1fr; }
+    .card-thumb { height:120px; }
+    .card-thumb .big-emoji { font-size:3.2rem; }
+    .card-body { padding:14px 16px 14px; }
+    .card-desc { -webkit-line-clamp:3; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-dots"></div>
+
+  <!-- Ícones flutuantes -->
+  <div class="float-items">
+    <div class="fi" style="left:3%;top:20%;--d:7s;--dl:0s">🤖</div>
+    <div class="fi" style="left:11%;top:60%;--d:5s;--dl:1.2s">🧩</div>
+    <div class="fi" style="left:89%;top:15%;--d:6s;--dl:.6s">🚀</div>
+    <div class="fi" style="left:83%;top:63%;--d:8s;--dl:2s">🧮</div>
+    <div class="fi" style="left:50%;top:6%;--d:5.5s;--dl:1.5s">⭐</div>
+    <div class="fi" style="left:71%;top:42%;--d:9s;--dl:.4s">📐</div>
+    <div class="fi" style="left:23%;top:38%;--d:6.5s;--dl:2.5s">🎯</div>
+    <div class="fi" style="left:60%;top:20%;--d:7.5s;--dl:1s">👋</div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="logo-badge"><span>🎓</span> Plataforma de Aprendizagem</div>
+    <div class="vol-badge"><span class="vol-pill">✦ VOLUME II ✦</span></div>
+
+    <h1>Mais jogos para<br><em>explorar e aprender!</em></h1>
+
+    <p class="hero-sub">
+      A segunda coleção de jogos educacionais — robótica, matemática avançada,
+      Libras, interdisciplinar e muito mais.
+    </p>
+
+    <div class="stats-row">
+      <div class="stat-pill">
+        <span class="icon">🎮</span>
+        <div>
+          <div class="val" id="total-count">16</div>
+          <div class="lbl">Jogos disponíveis</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <span class="icon">📂</span>
+        <div>
+          <div class="val" id="cat-count">8</div>
+          <div class="lbl">Disciplinas</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <span class="icon">🆓</span>
+        <div>
+          <div class="val">100%</div>
+          <div class="lbl">Gratuito</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voltar para menu I -->
+    <a class="back-btn"
+       href="https://alvesdealmeida.github.io/menuEDU/"
+       target="_blank" rel="noopener">
+      <span class="arrow">←</span>
+      🎓 Voltar para Educ Games I
+    </a>
+  </div>
+</header>
+
+<div class="wave-sep"></div>
+
+<!-- ── CONTEÚDO ─────────────────────────────────────── -->
+<main class="main">
+
+  <!-- Busca -->
+  <div class="search-bar">
+    <span class="si">🔍</span>
+    <input id="searchInput" type="text"
+      placeholder="Buscar jogo por nome ou descrição..."
+      oninput="filterGames()" autocomplete="off">
+  </div>
+
+  <!-- Tabs com scroll horizontal -->
+  <p class="section-label">Filtrar por disciplina</p>
+  <div class="tabs-wrap">
+    <div class="tabs" id="tabs"></div>
+  </div>
+
+  <!-- Grid -->
+  <div class="games-heading">
+    <h2>Jogos Educacionais II</h2>
+    <span class="count-badge" id="count-label"></span>
+  </div>
+
+  <div class="games-grid" id="gamesGrid"></div>
+
+</main>
+
+<!-- ── RODAPÉ ────────────────────────────────────────── -->
+<footer>
+  Desenvolvido com 💙 para a <strong>educação</strong>
+  &nbsp;·&nbsp; Powered by <strong>Sebastião Alves de Almeida</strong>
+  &nbsp;·&nbsp; Todos os jogos são gratuitos
+</footer>
+
+<script>
+// ── Paleta por disciplina ────────────────────────────
+const SUBJECT_STYLES = {
+  "MULTIDICIPLINAR": {
+    thumbGrad:"linear-gradient(135deg,#0c4a6e,#0284c7)",
+    tagTxt:"#0284c7", tagBg:"rgba(2,132,199,0.12)", btn:"#0284c7",
+    icon:"🌍"
+  },
+  "LÓGICA": {
+    thumbGrad:"linear-gradient(135deg,#3b0764,#7c3aed)",
+    tagTxt:"#7c3aed", tagBg:"rgba(124,58,237,0.12)", btn:"#7c3aed",
+    icon:"🧩"
+  },
+  "MATEMATICA": {
+    thumbGrad:"linear-gradient(135deg,#064e3b,#059669)",
+    tagTxt:"#059669", tagBg:"rgba(5,150,105,0.12)", btn:"#059669",
+    icon:"📐"
+  },
+  "MATEMATICA AVANCADA": {
+    thumbGrad:"linear-gradient(135deg,#134e4a,#0f766e)",
+    tagTxt:"#0f766e", tagBg:"rgba(15,118,110,0.12)", btn:"#0f766e",
+    icon:"∑"
+  },
+  "MATEMATICA BÁSICA": {
+    thumbGrad:"linear-gradient(135deg,#14532d,#16a34a)",
+    tagTxt:"#15803d", tagBg:"rgba(21,128,61,0.12)", btn:"#15803d",
+    icon:"🔢"
+  },
+  "PORTUGUÊS": {
+    thumbGrad:"linear-gradient(135deg,#7c2d12,#ea580c)",
+    tagTxt:"#ea580c", tagBg:"rgba(234,88,12,0.12)", btn:"#ea580c",
+    icon:"📖"
+  },
+  "INTERDISCIPLINAR": {
+    thumbGrad:"linear-gradient(135deg,#1e1b4b,#4338ca)",
+    tagTxt:"#4f46e5", tagBg:"rgba(79,70,229,0.12)", btn:"#4f46e5",
+    icon:"🌀"
+  },
+  "ROBÓTICA": {
+    thumbGrad:"linear-gradient(135deg,#4c0519,#be123c)",
+    tagTxt:"#be123c", tagBg:"rgba(190,18,60,0.12)", btn:"#be123c",
+    icon:"🤖"
+  },
+  "LIBRAS": {
+    thumbGrad:"linear-gradient(135deg,#431407,#c2410c)",
+    tagTxt:"#c2410c", tagBg:"rgba(194,65,12,0.12)", btn:"#c2410c",
+    icon:"👋"
+  },
+};
+
+const DEFAULT_STYLE = {
+  thumbGrad:"linear-gradient(135deg,#1e3a5f,#2563eb)",
+  tagTxt:"#2563eb", tagBg:"rgba(37,99,235,0.12)", btn:"#2563eb",
+  icon:"🎮"
+};
+
+// ── Dados dos jogos ──────────────────────────────────
+const games = [
+  {
+    title: "EduVerse 3D",
+    desc: "Explore o Mundo do Conhecimento em um ambiente 3D interativo.",
+    emoji: "🌍",
+    category: "MULTIDICIPLINAR",
+    badge: "CONHECIMENTO",
+    url: "https://alvesdealmeida.github.io/eduVerse-3D/",
+  },
+  {
+    title: "Cubo Mágico Educacional",
+    desc: "Desenvolva lógica e raciocínio espacial com o Cubo Mágico.",
+    emoji: "🧩",
+    category: "LÓGICA",
+    badge: "CUBO MÁGICO",
+    url: "https://alvesdealmeida.github.io/cuboMagicoEduc/",
+  },
+  {
+    title: "EduVerseKids 3D",
+    desc: "Aventura 3D de aprendizado para alunos do 2º ao 5º ano EF.",
+    emoji: "🚀",
+    category: "MULTIDICIPLINAR",
+    badge: "2º - 5º ANO",
+    url: "https://alvesdealmeida.github.io/EducVerseKids/",
+  },
+  {
+    title: "MatemagicaKids",
+    desc: "Pratique tabuada de multiplicação, divisão, adição e subtração.",
+    emoji: "✖️",
+    category: "MATEMATICA",
+    badge: "TABUADA",
+    url: "https://alvesdealmeida.github.io/tabuadaKids/",
+  },
+  {
+    title: "BlocosMatemáticos",
+    desc: "Tabuada avançada com blocos matemáticos: × ÷ + −.",
+    emoji: "📊",
+    category: "MATEMATICA",
+    badge: "TABUADA AVANÇADA",
+    url: "https://alvesdealmeida.github.io/BlocosMatematicos/",
+  },
+  {
+    title: "Matemática Avançada",
+    desc: "Centro de exames com operações avançadas e desafios matemáticos.",
+    emoji: "🔬",
+    category: "MATEMATICA AVANCADA",
+    badge: "OPS. AVANÇADAS",
+    url: "https://alvesdealmeida.github.io/centroExamesAvancado/",
+  },
+  {
+    title: "MathCraft",
+    desc: "Mine e aprenda matemática em um mundo de aventura estilo Craft.",
+    emoji: "⛏️",
+    category: "MATEMATICA BÁSICA",
+    badge: "OPERAÇÕES",
+    url: "https://alvesdealmeida.github.io/mathCraft/",
+  },
+  {
+    title: "Matemática Kids II",
+    desc: "Ajude o herói com a tabuada para vencer o vilão!",
+    emoji: "🦸",
+    category: "MATEMATICA",
+    badge: "OPERAÇÕES",
+    url: "https://alvesdealmeida.github.io/matemagicaKidsII/",
+  },
+  {
+    title: "Matemática Pac-Man",
+    desc: "Ajude a bolinha matemática resolvendo as operações para avançar.",
+    emoji: "🎮",
+    category: "MATEMATICA",
+    badge: "OPERAÇÕES",
+    url: "https://alvesdealmeida.github.io/pacMatematica/",
+  },
+  {
+    title: "Tipos de Textos",
+    desc: "Ajude a coruja a lembrar os tipos de textos em Língua Portuguesa.",
+    emoji: "📚",
+    category: "PORTUGUÊS",
+    badge: "TIPOS DE TEXTOS",
+    url: "https://alvesdealmeida.github.io/cidadedasPalavras/",
+  },
+  {
+    title: "Labirinto Interdisciplinar",
+    desc: "Percorra um labirinto cheio de desafios interdisciplinares.",
+    emoji: "🌀",
+    category: "INTERDISCIPLINAR",
+    badge: "INTERDISCIPLINAR",
+    url: "https://alvesdealmeida.github.io/labirintoInterdisciplinar/",
+  },
+  {
+    title: "MostraBot",
+    desc: "O robô e a letra — aprenda com nosso simpático robô educador.",
+    emoji: "🤖",
+    category: "ROBÓTICA",
+    badge: "ROBÓTICA",
+    url: "https://alvesdealmeida.github.io/mostraBot/",
+  },
+  {
+    title: "ReptoSumoBot",
+    desc: "O robô precisa tirar o objeto da arena — desafio de lógica e robótica!",
+    emoji: "⚙️",
+    category: "ROBÓTICA",
+    badge: "SUMO BOT",
+    url: "https://alvesdealmeida.github.io/reptoSumoBot/",
+  },
+  {
+    title: "Memória em Libras",
+    desc: "Jogo de memória com a Língua Brasileira de Sinais.",
+    emoji: "👋",
+    category: "LIBRAS",
+    badge: "LIBRAS",
+    url: "https://alvesdealmeida.github.io/memoriaLibras/",
+  },
+  {
+    title: "Batalha de Balões",
+    desc: "Ajude o robô a coletar os balões corretos nessa batalha educativa!",
+    emoji: "🎈",
+    category: "ROBÓTICA",
+    badge: "ROBÓTICA",
+    url: "https://alvesdealmeida.github.io/batalhadeBaloes/",
+  },
+  {
+    title: "Robô Desenhista",
+    desc: "Programe o robô desenhista e crie arte com lógica de programação.",
+    emoji: "🖌️",
+    category: "ROBÓTICA",
+    badge: "ROBÓTICA",
+    url: "https://alvesdealmeida.github.io/roboDesenhista/",
+  },
+];
+
+// ── Estado ────────────────────────────────────────────
+let activeCategory = "Todos";
+
+function getCategories() {
+  const seen = new Set();
+  const ordered = ["MULTIDICIPLINAR","LÓGICA","MATEMATICA","MATEMATICA BÁSICA",
+                   "MATEMATICA AVANCADA","PORTUGUÊS","INTERDISCIPLINAR","ROBÓTICA","LIBRAS"];
+  return ["Todos", ...ordered.filter(c => {
+    if (seen.has(c)) return false;
+    seen.add(c);
+    return games.some(g => g.category === c);
+  })];
+}
+
+function countByCategory(cat) {
+  return cat === "Todos" ? games.length : games.filter(g => g.category === cat).length;
+}
+
+const CAT_ICONS = {
+  "Todos": "📚",
+  "MULTIDICIPLINAR": "🌍",
+  "LÓGICA": "🧩",
+  "MATEMATICA": "📐",
+  "MATEMATICA AVANCADA": "🔬",
+  "MATEMATICA BÁSICA": "🔢",
+  "PORTUGUÊS": "📖",
+  "INTERDISCIPLINAR": "🌀",
+  "ROBÓTICA": "🤖",
+  "LIBRAS": "👋",
+};
+
+const CAT_LABELS = {
+  "Todos": "Todos",
+  "MULTIDICIPLINAR": "Multidisciplinar",
+  "LÓGICA": "Lógica",
+  "MATEMATICA": "Matemática",
+  "MATEMATICA AVANCADA": "Mat. Avançada",
+  "MATEMATICA BÁSICA": "Mat. Básica",
+  "PORTUGUÊS": "Português",
+  "INTERDISCIPLINAR": "Interdisciplinar",
+  "ROBÓTICA": "Robótica",
+  "LIBRAS": "Libras",
+};
+
+// ── Render tabs ───────────────────────────────────────
+function renderTabs() {
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = getCategories().map(cat => `
+    <button class="tab ${cat === activeCategory ? 'active' : ''}"
+      onclick="setCategory('${cat}')">
+      ${CAT_ICONS[cat] || ''} ${CAT_LABELS[cat] || cat}
+      <span class="tab-count">${countByCategory(cat)}</span>
+    </button>
+  `).join('');
+  // atualiza contadores do hero
+  document.getElementById("total-count").textContent = games.length;
+  document.getElementById("cat-count").textContent = getCategories().length - 1;
+}
+
+function setCategory(cat) {
+  activeCategory = cat;
+  renderTabs();
+  filterGames();
+}
+
+// ── Filtrar ────────────────────────────────────────────
+function filterGames() {
+  const q = document.getElementById("searchInput").value.toLowerCase().trim();
+  const filtered = games.filter(g => {
+    const matchCat = activeCategory === "Todos" || g.category === activeCategory;
+    const matchQ   = !q || g.title.toLowerCase().includes(q) || g.desc.toLowerCase().includes(q) || g.category.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  renderGames(filtered);
+}
+
+// ── Render cards ───────────────────────────────────────
+function renderGames(list) {
+  const grid = document.getElementById("gamesGrid");
+  const lbl  = document.getElementById("count-label");
+  lbl.textContent = list.length + (list.length === 1 ? " jogo" : " jogos");
+
+  if (!list.length) {
+    grid.innerHTML = `
+      <div class="empty">
+        <span class="ei">🤔</span>
+        <h3>Nenhum jogo encontrado</h3>
+        <p>Tente outro termo ou selecione outra disciplina.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map((g, i) => {
+    const s = SUBJECT_STYLES[g.category] || DEFAULT_STYLE;
+    const catLabel = CAT_LABELS[g.category] || g.category;
+    return `
+    <a class="game-card" href="${g.url}" target="_blank" rel="noopener"
+       style="--accent:${s.btn}; animation-delay:${i * 0.055}s">
+      <div class="card-thumb" style="background:${s.thumbGrad}">
+        <span class="big-emoji"
+          style="--ef-dur:${3 + (i % 4) * 0.6}s; --ef-dl:${(i * 0.22) % 2}s">
+          ${g.emoji}
+        </span>
+        <span class="subject-badge">${g.badge}</span>
+        <span class="play-tag">▶ Jogar agora</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${g.title}</div>
+        <div class="card-desc">${g.desc}</div>
+        <div class="card-footer">
+          <span class="card-tag"
+            style="color:${s.tagTxt}; background:${s.tagBg}">
+            ${s.icon || ''} ${catLabel}
+          </span>
+          <button class="card-btn" style="background:${s.btn}"
+            onclick="event.preventDefault(); window.open('${g.url}','_blank')">
+            <svg viewBox="0 0 16 16"><path d="M6 3l6 5-6 5V3z"/></svg>
+            Jogar
+          </button>
+        </div>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+// ── Init ───────────────────────────────────────────────
+renderTabs();
+filterGames();
+</script>
+</body>
+</html>
