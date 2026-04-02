@@ -602,7 +602,7 @@ const SUBJECT_STYLES = {
     tagTxt:"#c2410c", tagBg:"rgba(194,65,12,0.12)", btn:"#c2410c",
     icon:"👋"
   },
-  "PROGRAMAÇÃO & LÓGICA": {
+  "PROGRAMAÇÃO": {
     thumbGrad:"linear-gradient(135deg,#4c0519,#be123c)",
     tagTxt:"#be123c", tagBg:"rgba(190,18,60,0.12)", btn:"#be123c",
     icon:"💻"
@@ -760,8 +760,8 @@ const games = [
     title: "Programa Binário - [[VERSÃO BETA - TESTES]]",
     desc: "Aprenda lógica de programação e descodificar imagens.",
     emoji: "💻👨‍💻",
-    category: "PROGRAMAÇÃO & LÓGICA",
-    badge: "PROGRAMAÇÃO & LÓGICA",
+    category: "PROGRAMAÇÃO",
+    badge: "PROGRAMAÇÃO",
     url: "https://alvesdealmeida.github.io/joguinhoBinario_t/",
   },
 ];
@@ -772,7 +772,7 @@ let activeCategory = "Todos";
 function getCategories() {
   const seen = new Set();
   const ordered = ["MULTIDICIPLINAR","LÓGICA","MATEMATICA","MATEMATICA BÁSICA",
-                   "MATEMATICA AVANCADA","PORTUGUÊS","INTERDISCIPLINAR","ROBÓTICA","LIBRAS","HISTÓRIA", "GEOGRAFIA", "CIÊNCIAS", "PROGRAMAÇÃO & LÓGICA"];
+                   "MATEMATICA AVANCADA","PORTUGUÊS","INTERDISCIPLINAR","ROBÓTICA","LIBRAS","HISTÓRIA", "GEOGRAFIA", "CIÊNCIAS", "PROGRAMAÇÃO"];
   return ["Todos", ...ordered.filter(c => {
     if (seen.has(c)) return false;
     seen.add(c);
@@ -798,7 +798,7 @@ const CAT_ICONS = {
   // Adicione em CAT_ICONS:
   "GEOGRAFIA": "🗺️",
   "HISTÓRIA": "🏺",
-  "PROGRAMAÇÃO & LÓGICA": "🧑‍💻",
+  "PROGRAMAÇÃO": "🧑‍💻",
 };
 
 const CAT_LABELS = {
@@ -815,7 +815,7 @@ const CAT_LABELS = {
   // Adicione em CAT_LABELS:
   "GEOGRAFIA": "Geografia",
   "HISTÓRIA": "História",
-  "PROGRAMAÇÃO & LÓGICA": "Programação & Lógica",
+  "PROGRAMAÇÃO": "Programação",
 };
 
 // ── Render tabs ───────────────────────────────────────
