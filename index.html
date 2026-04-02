@@ -767,7 +767,7 @@ const games = [
 ];
 
 // ── Estado ────────────────────────────────────────────
-let activeCategory = "Todos";
+/*let activeCategory = "Todos";
 
 function getCategories() {
   const seen = new Set();
@@ -778,6 +778,39 @@ function getCategories() {
     seen.add(c);
     return games.some(g => g.category === c);
   })];
+}*/
+function getCategories() {
+  const seen = new Set();
+  
+  // ESTA LISTA ABAIXO É O "MAPA" DOS SEUS BOTÕES. 
+  // Se o nome não estiver aqui, o botão não aparece.
+  const ordered = [
+    "MULTIDICIPLINAR",
+    "LÓGICA",
+    "MATEMATICA",
+    "MATEMATICA BÁSICA",
+    "MATEMATICA AVANCADA",
+    "PORTUGUÊS",
+    "GEOGRAFIA",    // Adicionado
+    "HISTÓRIA",     // Adicionado
+    "INTERDISCIPLINAR",
+    "ROBÓTICA",
+    "LIBRAS",
+    "PROGRAMAÇÃO"   // Adicionado
+  ];
+  
+  // Adiciona "Todos" no início e filtra apenas o que tem jogo cadastrado
+  const availableCategories = ["Todos"];
+  
+  ordered.forEach(cat => {
+    // Verifica se existe algum jogo com essa categoria EXATA
+    const hasGame = games.some(g => g.category.toUpperCase() === cat.toUpperCase());
+    if (hasGame) {
+      availableCategories.push(cat);
+    }
+  });
+
+  return availableCategories;
 }
 
 function countByCategory(cat) {
