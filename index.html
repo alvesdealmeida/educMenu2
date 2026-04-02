@@ -607,6 +607,23 @@ const SUBJECT_STYLES = {
     tagTxt:"#be123c", tagBg:"rgba(190,18,60,0.12)", btn:"#be123c",
     icon:"💻"
   },
+  // Procure por: const SUBJECT_STYLES = { ... }
+"PORTUGUÊS": {
+    thumbGrad:"linear-gradient(135deg,#7c2d12,#ea580c)",
+    tagTxt:"#ea580c", tagBg:"rgba(234,88,12,0.12)", btn:"#ea580c",
+    icon:"📖"
+},
+// ADICIONE ESTAS DUAS ABAIXO:
+"GEOGRAFIA": {
+    thumbGrad:"linear-gradient(135deg,#1e3a24,#2d6a4f)",
+    tagTxt:"#2d6a4f", tagBg:"rgba(45,106,79,0.12)", btn:"#2d6a4f",
+    icon:"🗺️"
+},
+"HISTÓRIA": {
+    thumbGrad:"linear-gradient(135deg,#432818,#99582a)",
+    tagTxt:"#99582a", tagBg:"rgba(153,88,42,0.12)", btn:"#99582a",
+    icon:"🏺"
+},
 };
 const DEFAULT_STYLE = {
   thumbGrad:"linear-gradient(135deg,#1e3a5f,#2563eb)",
@@ -760,7 +777,7 @@ let activeCategory = "Todos";
 function getCategories() {
   const seen = new Set();
   const ordered = ["MULTIDICIPLINAR","LÓGICA","MATEMATICA","MATEMATICA BÁSICA",
-                   "MATEMATICA AVANCADA","PORTUGUÊS","INTERDISCIPLINAR","ROBÓTICA","LIBRAS"];
+                   "MATEMATICA AVANCADA","PORTUGUÊS","INTERDISCIPLINAR","ROBÓTICA","LIBRAS","HISTÓRIA", "GEOGRAFIA", "CIÊNCIAS", "PROGRAMAÇÃO & LÓGICA"];
   return ["Todos", ...ordered.filter(c => {
     if (seen.has(c)) return false;
     seen.add(c);
@@ -783,6 +800,10 @@ const CAT_ICONS = {
   "INTERDISCIPLINAR": "🌀",
   "ROBÓTICA": "🤖",
   "LIBRAS": "👋",
+  // Adicione em CAT_ICONS:
+  "GEOGRAFIA": "🗺️",
+  "HISTÓRIA": "🏺",
+  "PROGRAMAÇÃO & LÓGICA": "🧑‍💻",
 };
 
 const CAT_LABELS = {
@@ -796,6 +817,10 @@ const CAT_LABELS = {
   "INTERDISCIPLINAR": "Interdisciplinar",
   "ROBÓTICA": "Robótica",
   "LIBRAS": "Libras",
+  // Adicione em CAT_LABELS:
+  "GEOGRAFIA": "Geografia",
+  "HISTÓRIA": "História",
+  "PROGRAMAÇÃO & LÓGICA": "Programação & Lógica",
 };
 
 // ── Render tabs ───────────────────────────────────────
