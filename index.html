@@ -11,6 +11,10 @@
     --navy2:  #15294a;
     --teal:   #0ea5e9;
     --amber:  #f59e0b;
+    --green:  #10b981;
+    --coral:  #f43f5e;
+    --purple: #8b5cf6;
+    --orange: #f97316;
     --cream:  #fef9f0;
     --white:  #ffffff;
     --text:   #1e293b;
@@ -20,208 +24,682 @@
   }
 
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
 
-  /* ── HERO ─────────────────────────────────── */
-  .hero {
-    background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 55%, #1a3d6e 100%);
-    padding: 40px 20px 60px;
-    text-align: center;
-    color: white;
+  html {
+    scroll-behavior: smooth;
+    overflow-y: scroll; /* barra lateral sempre visível */
   }
-  .hero h1 { font-family:'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 15px; }
-  .hero h1 em { color: var(--amber); font-style: normal; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 60%, #1a3d6e 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 14px 24px 28px;
+    text-align: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%);
+    top: -200px; right: -100px;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%);
+    bottom: -120px; left: -60px;
+    pointer-events: none;
+  }
+
+  .hero-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  .float-items { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .fi {
+    position: absolute; font-size: 1.6rem; opacity: 0.15;
+    animation: floatItem var(--d,6s) ease-in-out infinite;
+    animation-delay: var(--dl,0s);
+  }
+  @keyframes floatItem {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-18px) rotate(8deg); }
+  }
+
+  .hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+
+  .logo-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 40px;
+    padding: 5px 16px;
+    font-size: 0.68rem; font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 8px;
+    backdrop-filter: blur(6px);
+  }
+  .logo-badge span { font-size: 0.85rem; }
+
+  .vol2-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(245,158,11,0.2);
+    border: 1px solid rgba(245,158,11,0.4);
+    border-radius: 20px; padding: 3px 12px;
+    font-size: 0.65rem; font-weight: 800;
+    color: var(--amber); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    font-weight: 800; color: #fff;
+    line-height: 1.15; margin-bottom: 8px;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--amber), #fde68a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stats-row {
+    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 30px; padding: 7px 16px;
+    display: flex; align-items: center; gap: 7px;
+    backdrop-filter: blur(6px);
+  }
+  .stat-pill .icon { font-size: 1rem; }
+  .stat-pill .val  { font-size: 0.85rem; font-weight: 800; color: #fff; }
+  .stat-pill .lbl  { font-size: 0.62rem; color: rgba(255,255,255,0.6); font-weight: 600; margin-top: 1px; }
+
+  .hero-btns {
+    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+    margin-top: 16px;
+  }
 
   .back-btn {
-    display: inline-block; margin-top: 20px; padding: 10px 20px;
-    background: rgba(255,255,255,0.1); border: 1px solid var(--amber);
-    color: var(--amber); text-decoration: none; border-radius: 30px; font-weight: 800;
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 40px; padding: 7px 18px;
+    color: rgba(255,255,255,0.85);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem; font-weight: 800;
+    text-decoration: none; letter-spacing: 0.04em;
+    backdrop-filter: blur(6px);
+    transition: background .22s, box-shadow .22s, transform .2s;
+  }
+  .back-btn:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateY(-2px);
   }
 
-  /* ── MENU DE CATEGORIAS (AJUSTADO PARA ROLAGEM) ── */
-  .tabs-container {
-    padding: 20px 0;
+  .next-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(245,158,11,0.18);
+    border: 2px solid rgba(245,158,11,0.55);
+    border-radius: 40px; padding: 7px 18px;
+    color: var(--amber);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem; font-weight: 800;
+    text-decoration: none; letter-spacing: 0.04em;
+    backdrop-filter: blur(6px);
+    transition: background .22s, box-shadow .22s, transform .2s;
+  }
+  .next-btn:hover {
+    background: rgba(245,158,11,0.32);
+    box-shadow: 0 0 24px rgba(245,158,11,0.35);
+    transform: translateY(-2px);
+  }
+
+  /* Onda separadora */
+  .wave-sep {
+    display: block; width: 100%; height: 20px;
+    margin-top: -1px;
     background: var(--cream);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    clip-path: ellipse(56% 100% at 50% 100%);
+  }
+
+  /* ── CORPO ────────────────────────────────────────────────── */
+  .main {
+    max-width: 1400px; margin: 0 auto;
+    padding: 0 24px 80px;
+    position: relative;
+    top: -8px;
+  }
+
+  /* Busca */
+  .search-bar {
+    display: flex; align-items: center;
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 0 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+    transition: border-color .25s, box-shadow .25s;
+  }
+  .search-bar:focus-within {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 4px rgba(14,165,233,0.12), var(--shadow);
+  }
+  .search-bar .si { font-size: 1.2rem; color: var(--muted); flex-shrink: 0; }
+  .search-bar input {
+    flex: 1; border: none; outline: none; background: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem; font-weight: 600; color: var(--text);
+    padding: 14px 14px;
+  }
+  .search-bar input::placeholder { color: #94a3b8; font-weight: 600; }
+
+  /* Tabs */
+  .section-label {
+    font-size: 0.75rem; font-weight: 800;
+    color: var(--muted); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 10px;
   }
 
   .tabs-wrap {
-    display: flex;
-    overflow-x: auto; /* Habilita rolagem horizontal */
-    overflow-y: hidden;
-    padding: 5px 20px 15px 20px;
-    gap: 10px;
-    -webkit-overflow-scrolling: touch; /* Rolagem suave no iOS */
-    scrollbar-width: thin; /* Barra fina no Firefox */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-bottom: 28px;
+    padding-bottom: 4px;
   }
+  .tabs-wrap::-webkit-scrollbar { display: none; }
 
-  /* Estilização da barra de rolagem para Chrome/Edge/Safari */
-  .tabs-wrap::-webkit-scrollbar {
-    height: 4px;
+  .tabs {
+    display: flex; gap: 10px;
+    width: max-content;
+    min-width: 100%;
   }
-  .tabs-wrap::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 10px;
-  }
-
   .tab {
-    flex: 0 0 auto; /* Impede as abas de encolherem, forçando a rolagem */
-    padding: 10px 20px;
+    display: flex; align-items: center; gap: 7px;
+    padding: 9px 18px;
     border-radius: 40px;
     border: 2px solid var(--border);
     background: var(--white);
     color: var(--muted);
-    font-weight: 800;
-    font-size: 0.9rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem; font-weight: 800;
     cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap; /* Impede quebra de texto dentro da aba */
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all .22s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    min-height: 42px;
+    -webkit-tap-highlight-color: transparent;
   }
-
+  .tab:hover {
+    border-color: var(--teal); color: var(--teal);
+    transform: translateY(-2px);
+  }
   .tab.active {
-    background: var(--navy);
-    border-color: var(--navy);
+    background: var(--navy); border-color: var(--navy);
     color: #fff;
-    box-shadow: 0 4px 12px rgba(30,58,95,0.2);
+    box-shadow: 0 6px 20px rgba(30,58,95,0.25);
+    transform: translateY(-2px);
+  }
+  .tab .tab-count {
+    background: rgba(255,255,255,0.22);
+    border-radius: 20px; padding: 2px 7px;
+    font-size: 0.7rem;
+  }
+  .tab:not(.active) .tab-count {
+    background: var(--border); color: var(--muted);
   }
 
-  /* ── GRID E CARDS ─────────────────────────── */
-  .main { max-width: 1200px; margin: 0 auto; padding: 0 20px 40px; }
-  
-  .search-bar {
-    margin: 20px 0;
-    background: #fff;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 20px;
-    display: flex;
+  /* Heading dos jogos */
+  .games-heading {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
   }
-  .search-bar input { border: none; outline: none; width: 100%; font-size: 1rem; }
+  .games-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--navy);
+  }
+  .games-heading .count-badge {
+    font-size: 0.8rem; font-weight: 800; color: var(--muted);
+    background: var(--border); border-radius: 20px; padding: 4px 12px;
+  }
 
+  /* Grid 5 colunas */
   .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
   }
 
-  /* Ajuste Tablet/Mobile */
-  @media (max-width: 768px) {
-    .games-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-    .hero h1 { font-size: 1.8rem; }
-    .card-body { padding: 12px; }
-    .card-title { font-size: 0.9rem; }
-  }
-
+  /* Card */
   .game-card {
-    background: #fff; border-radius: 15px; overflow: hidden;
-    text-decoration: none; display: flex; flex-direction: column;
-    box-shadow: var(--shadow); transition: transform 0.2s;
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    display: flex; flex-direction: column;
+    box-shadow: 0 2px 16px rgba(30,58,95,0.08);
     border: 2px solid transparent;
+    transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s, border-color .28s;
+    animation: cardIn .45s ease both;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
   }
-  .game-card:hover { transform: translateY(-5px); }
+  .game-card:hover {
+    transform: translateY(-8px) scale(1.015);
+    box-shadow: 0 20px 50px rgba(30,58,95,0.15);
+    border-color: var(--accent, var(--teal));
+  }
+  .game-card:active { transform: scale(.98); }
+  @keyframes cardIn {
+    from { opacity:0; transform: translateY(24px) scale(.97); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
 
-  .card-thumb { height: 120px; display: flex; align-items: center; justify-content: center; position: relative; }
-  .big-emoji { font-size: 3rem; }
-  .card-body { padding: 15px; flex: 1; display: flex; flex-direction: column; }
-  .card-title { font-weight: 900; color: var(--navy); margin-bottom: 5px; }
-  .card-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; flex: 1; }
-  
-  .card-footer { display: flex; justify-content: space-between; align-items: center; }
-  .card-btn { background: var(--navy); color: #fff; border: none; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; }
+  /* Thumbnail */
+  .card-thumb {
+    height: 110px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .card-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.22) 100%);
+  }
+  .big-emoji {
+    font-size: 3rem;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+    animation: emojiFloat 3.5s ease-in-out infinite;
+    position: relative; z-index: 1;
+  }
+  @keyframes emojiFloat {
+    0%,100% { transform: translateY(0) scale(1); }
+    50%     { transform: translateY(-9px) scale(1.07); }
+  }
 
-  footer { text-align: center; padding: 40px; background: var(--navy2); color: white; font-size: 0.8rem; margin-top: 40px; }
+  .subject-badge {
+    position: absolute; top: 10px; left: 10px; z-index: 2;
+    background: rgba(255,255,255,0.18); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.28); color: #fff;
+    border-radius: 8px; font-size: 0.62rem; font-weight: 800;
+    padding: 3px 8px; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  .level-tag {
+    position: absolute; bottom: 10px; right: 10px; z-index: 2;
+    background: rgba(0,0,0,0.35); backdrop-filter: blur(6px);
+    color: rgba(255,255,255,0.9); border-radius: 20px;
+    font-size: 0.66rem; font-weight: 700; padding: 2px 9px;
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  /* Corpo do card */
+  .card-body {
+    padding: 14px 14px 12px;
+    display: flex; flex-direction: column; flex: 1;
+  }
+  .card-title {
+    font-size: 0.92rem; font-weight: 900;
+    color: var(--navy); margin-bottom: 5px;
+  }
+  .card-desc {
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--muted); line-height: 1.5;
+    flex: 1; margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-footer {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 8px;
+  }
+  .card-tag {
+    font-size: 0.68rem; font-weight: 800;
+    border-radius: 20px; padding: 3px 10px;
+    letter-spacing: 0.06em;
+  }
+  .card-btn {
+    display: flex; align-items: center; gap: 5px;
+    color: #fff; border: none; border-radius: 10px;
+    padding: 8px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem; font-weight: 800;
+    cursor: pointer;
+    transition: filter .2s, transform .18s;
+    min-height: 36px; white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .card-btn:hover { filter: brightness(1.15); transform: scale(1.05); }
+  .card-btn svg { width: 12px; height: 12px; fill: #fff; flex-shrink: 0; }
+
+  /* Empty */
+  .empty {
+    grid-column: 1/-1; text-align: center;
+    padding: 80px 20px; color: var(--muted);
+  }
+  .empty .empty-icon { font-size: 3.5rem; margin-bottom: 16px; display:block; }
+  .empty h3 { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+
+  /* Rodapé */
+  footer {
+    background: var(--navy2);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  footer strong { color: rgba(255,255,255,0.85); }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────── */
+
+  /* Tablet largo 901–1200px → 4 colunas */
+  @media (max-width: 1200px) {
+    .games-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  }
+
+  /* Tablet ≤ 900px → 3 colunas */
+  @media (max-width: 900px) {
+    .hero { padding: 12px 18px 22px; }
+    h1 { font-size: clamp(1.3rem, 5vw, 1.9rem); }
+    .logo-badge { font-size: 0.64rem; padding: 5px 14px; }
+    .stats-row { gap: 8px; }
+    .stat-pill { padding: 6px 12px; gap: 6px; }
+    .stat-pill .icon { font-size: 0.9rem; }
+    .stat-pill .val  { font-size: 0.78rem; }
+    .stat-pill .lbl  { font-size: 0.58rem; }
+    .hero-btns { gap: 8px; margin-top: 12px; }
+    .back-btn, .next-btn { font-size: 0.74rem; padding: 6px 14px; }
+    .wave-sep { height: 14px; }
+
+    .main { padding: 0 16px 60px; top: -6px; }
+    .games-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .card-thumb { height: 100px; }
+    .big-emoji { font-size: 2.6rem; }
+    .card-body { padding: 12px 12px 10px; }
+    .card-title { font-size: 0.85rem; }
+    .card-btn { font-size: 0.72rem; padding: 6px 11px; }
+    .games-heading h2 { font-size: 1.2rem; }
+  }
+
+  /* Celular ≤ 600px → 2 colunas */
+  @media (max-width: 600px) {
+    .hero { padding: 10px 14px 18px; }
+    h1 { font-size: 1.25rem; line-height: 1.2; }
+    .logo-badge { font-size: 0.6rem; padding: 4px 12px; margin-bottom: 5px; }
+    .vol2-badge { font-size: 0.58rem; padding: 2px 10px; }
+    .stats-row { gap: 6px; }
+    .stat-pill { padding: 5px 10px; gap: 5px; }
+    .stat-pill .icon { font-size: 0.85rem; }
+    .stat-pill .val  { font-size: 0.72rem; }
+    .stat-pill .lbl  { font-size: 0.54rem; }
+    .hero-btns { flex-direction: column; align-items: center; gap: 7px; margin-top: 10px; }
+    .back-btn, .next-btn { font-size: 0.7rem; padding: 6px 14px; }
+    .wave-sep { height: 12px; }
+
+    .main { padding: 0 10px 50px; top: -5px; }
+    .search-bar { border-radius: 12px; margin-bottom: 16px; }
+    .search-bar input { font-size: 0.88rem; padding: 12px 10px; }
+
+    .games-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .card-thumb { height: 90px; }
+    .big-emoji { font-size: 2.2rem; }
+    .subject-badge { font-size: 0.56rem; padding: 2px 6px; }
+    .level-tag { font-size: 0.56rem; padding: 2px 7px; bottom: 6px; right: 6px; }
+    .card-body { padding: 10px 10px 9px; }
+    .card-title { font-size: 0.82rem; margin-bottom: 4px; }
+    .card-desc { font-size: 0.7rem; margin-bottom: 9px; }
+    .card-tag  { font-size: 0.58rem; padding: 2px 7px; }
+    .card-btn  { font-size: 0.66rem; padding: 6px 9px; min-height: 32px; }
+    .games-heading h2 { font-size: 1rem; }
+    footer { padding: 20px 14px; font-size: 0.74rem; }
+  }
+
+  /* Celular pequeno ≤ 360px */
+  @media (max-width: 360px) {
+    h1 { font-size: 1.1rem; }
+    .games-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .card-thumb { height: 80px; }
+    .big-emoji { font-size: 1.9rem; }
+    .stats-row { gap: 5px; }
+    .stat-pill { padding: 4px 8px; }
+  }
 </style>
 </head>
 <body>
-<body>
-  <!-- COLE O CÓDIGO DO VLIBRAS AQUI -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
+
+<!-- VLibras -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+<!-- ── HERO ────────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-dots"></div>
+
+  <div class="float-items">
+    <div class="fi" style="left:4%;top:18%;--d:7s;--dl:0s">🌍</div>
+    <div class="fi" style="left:12%;top:62%;--d:5s;--dl:1s">🤖</div>
+    <div class="fi" style="left:88%;top:14%;--d:6s;--dl:.5s">🧩</div>
+    <div class="fi" style="left:82%;top:65%;--d:8s;--dl:2s">💻</div>
+    <div class="fi" style="left:50%;top:8%;--d:5.5s;--dl:1.5s">⭐</div>
+    <div class="fi" style="left:70%;top:40%;--d:9s;--dl:.3s">📐</div>
+    <div class="fi" style="left:22%;top:40%;--d:6.5s;--dl:2.5s">📚</div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="logo-badge"><span>🎓</span> EDUC Plataforma de Aprendizagem</div>
+    <div class="vol2-badge">✨ Volume II</div>
+
+    <h1>EDUC Games <em>Volume II</em></h1>
+
+    <div class="stats-row">
+      <div class="stat-pill">
+        <span class="icon">🎮</span>
+        <div>
+          <div class="val" id="total-count">—</div>
+          <div class="lbl">Jogos disponíveis</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <span class="icon">📚</span>
+        <div>
+          <div class="val" id="total-cats">—</div>
+          <div class="lbl">Disciplinas</div>
+        </div>
+      </div>
+      <div class="stat-pill">
+        <span class="icon">🆓</span>
+        <div>
+          <div class="val">100%</div>
+          <div class="lbl">Gratuito</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-btns">
+      <a class="back-btn" href="https://alvesdealmeida.github.io/educMenu1/">← Menu I</a>
+      <a class="next-btn" href="#">🎓 Ver Educ Games III →</a>
     </div>
   </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
-
-  <!-- O resto do seu código continua aqui (overlay-aviso, etc) -->
-
-<header class="hero">
-  <h1>EDUC Games <em>Volume II</em></h1>
-  <p>Explore novos desafios educacionais!</p>
-  <a class="back-btn" href="https://alvesdealmeida.github.io/educMenu1/">← Menu Anterior</a>
 </header>
 
+<div class="wave-sep"></div>
+
+<!-- ── CONTEÚDO ──────────────────────────────────────────── -->
 <main class="main">
+
   <div class="search-bar">
-    <input id="searchInput" type="text" placeholder="Pesquisar jogo..." oninput="filterGames()">
+    <span class="si">🔍</span>
+    <input id="searchInput" type="text"
+      placeholder="Buscar jogo por nome ou descrição..."
+      oninput="filterGames()" autocomplete="off">
   </div>
 
-  <div class="tabs-container">
-    <div class="tabs-wrap" id="tabs">
-      <!-- Gerado via JS -->
-    </div>
+  <p class="section-label">Filtrar por disciplina</p>
+  <div class="tabs-wrap">
+    <div class="tabs" id="tabs"></div>
   </div>
 
-  <div class="games-grid" id="gamesGrid">
-    <!-- Gerado via JS -->
+  <div class="games-heading">
+    <h2>Jogos Educacionais</h2>
+    <span class="count-badge" id="count-label"></span>
   </div>
+
+  <div class="games-grid" id="gamesGrid"></div>
+
 </main>
 
+<!-- ── RODAPÉ ────────────────────────────────────────────── -->
 <footer>
   Desenvolvido com 💙 para a <strong>educação</strong> &nbsp;·&nbsp;
   Todos os jogos são gratuitos e de uso educacional.
   Desenvolvido pelo <strong>Professor Sebastião Alves de Almeida.</strong>
   <br><br>
-  <a href="http://lattes.cnpq.br/9094218444915879" target="_blank" rel="noopener" 
-     style="color: var(--teal); text-decoration: none; font-size: 0.9rem; border: 1px solid var(--teal); padding: 5px 15px; border-radius: 20px; display: inline-block; margin-top: 10px; transition: all 0.3s;">
+  <a href="http://lattes.cnpq.br/9094218444915879" target="_blank" rel="noopener"
+     style="color:var(--teal);text-decoration:none;font-size:0.9rem;border:1px solid var(--teal);padding:5px 15px;border-radius:20px;display:inline-block;margin-top:10px;">
      📄 Visualizar Currículo Lattes
   </a>
+  <div style="margin-top:16px;">
+    <img width="100"
+      src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://alvesdealmeida.github.io/educMenu2/&count_bg=%2379C83D&title_bg=%23555555&title=Acessos"
+      alt="Contador de Visitas">
+  </div>
 </footer>
 
 <script>
+// ── Paleta por disciplina ─────────────────────────────────────
 const SUBJECT_STYLES = {
-  "MULTIDICIPLINAR": { grad:"#0ea5e9", btn:"#0ea5e9", icon:"🌍" },
-  "LÓGICA": { grad:"#8b5cf6", btn:"#8b5cf6", icon:"🧩" },
-  "MATEMATICA": { grad:"#10b981", btn:"#10b981", icon:"📐" },
-  "PORTUGUÊS": { grad:"#f97316", btn:"#f97316", icon:"📖" },
-  "ROBÓTICA": { grad:"#f43f5e", btn:"#f43f5e", icon:"🤖" },
-  "GEOGRAFIA": { grad:"#2d6a4f", btn:"#2d6a4f", icon:"🗺️" },
-  "HISTÓRIA": { grad:"#99582a", btn:"#99582a", icon:"🏺" },
-  "PROGRAMAÇÃO": { grad:"#1e293b", btn:"#1e293b", icon:"💻" },
-  "TECNOLOGIA": {grad:"#050505", btn:"#22c55e", icon:"🚀"},
-  "RACIOCINIO LÓGICO":{grad:"#8b5cf6", btn:"#2563eb", icon:"🎨"},
+  "MULTIDICIPLINAR": {
+    thumbGrad: "linear-gradient(135deg,#0369a1,#0ea5e9)",
+    tagTxt: "#0284c7", tagBg: "rgba(14,165,233,0.12)", btn: "#0284c7"
+  },
+  "LÓGICA": {
+    thumbGrad: "linear-gradient(135deg,#3b0764,#8b5cf6)",
+    tagTxt: "#7c3aed", tagBg: "rgba(139,92,246,0.12)", btn: "#7c3aed"
+  },
+  "RACIOCÍNIO LÓGICO": {
+    thumbGrad: "linear-gradient(135deg,#3b0764,#8b5cf6)",
+    tagTxt: "#7c3aed", tagBg: "rgba(139,92,246,0.12)", btn: "#7c3aed"
+  },
+  "MATEMATICA": {
+    thumbGrad: "linear-gradient(135deg,#064e3b,#10b981)",
+    tagTxt: "#059669", tagBg: "rgba(16,185,129,0.12)", btn: "#059669"
+  },
+  "PORTUGUÊS": {
+    thumbGrad: "linear-gradient(135deg,#7c2d12,#f97316)",
+    tagTxt: "#ea580c", tagBg: "rgba(249,115,22,0.12)", btn: "#ea580c"
+  },
+  "  PORTUGUÊS": {
+    thumbGrad: "linear-gradient(135deg,#7c2d12,#f97316)",
+    tagTxt: "#ea580c", tagBg: "rgba(249,115,22,0.12)", btn: "#ea580c"
+  },
+  "ROBÓTICA": {
+    thumbGrad: "linear-gradient(135deg,#881337,#f43f5e)",
+    tagTxt: "#e11d48", tagBg: "rgba(244,63,94,0.12)", btn: "#e11d48"
+  },
+  "GEOGRAFIA": {
+    thumbGrad: "linear-gradient(135deg,#14532d,#22c55e)",
+    tagTxt: "#16a34a", tagBg: "rgba(34,197,94,0.12)", btn: "#16a34a"
+  },
+  "HISTÓRIA": {
+    thumbGrad: "linear-gradient(135deg,#78350f,#d97706)",
+    tagTxt: "#b45309", tagBg: "rgba(217,119,6,0.12)", btn: "#b45309"
+  },
+  "PROGRAMAÇÃO": {
+    thumbGrad: "linear-gradient(135deg,#0f172a,#334155)",
+    tagTxt: "#475569", tagBg: "rgba(71,85,105,0.12)", btn: "#475569"
+  },
+  "TECNOLOGIA": {
+    thumbGrad: "linear-gradient(135deg,#052e16,#22c55e)",
+    tagTxt: "#15803d", tagBg: "rgba(34,197,94,0.12)", btn: "#15803d"
+  },
+};
+
+const CAT_ICONS = {
+  "Todos":          "📚",
+  "MULTIDICIPLINAR":"🌍",
+  "LÓGICA":         "🧩",
+  "RACIOCÍNIO LÓGICO":"🎨",
+  "MATEMATICA":     "📐",
+  "PORTUGUÊS":      "📖",
+  "ROBÓTICA":       "🤖",
+  "GEOGRAFIA":      "🗺️",
+  "HISTÓRIA":       "🏺",
+  "PROGRAMAÇÃO":    "💻",
+  "TECNOLOGIA":     "🚀",
 };
 
 const games = [
-  { title: "EducVerse 3D", desc: "Mundo interativo.", emoji: "🌍", category: "MULTIDICIPLINAR", url: "https://alvesdealmeida.github.io/eduVerse-3D/" },
-  { title: "Cubo Mágico 3D", desc: "Lógica e raciocínio.", emoji: "🧊", category: "LÓGICA", url: "https://alvesdealmeida.github.io/cuboMagicoII/" },
-  /*{ title: "Cubo Mágico [[VERSÃO BETA]]", desc: "Lógica e raciocínio.", emoji: "🧩", category: "LÓGICA", url: "https://alvesdealmeida.github.io/cuboMagicoEduc/" },*/
-  /*{ title: "Missão Amazônia: Pro Trainer [[VERSÃO BETA]]", desc:"Treine navegação lógica e ângulos no rio.", emoji:"🚤", category: "LÓGICA", url: "https://alvesdealmeida.github.io/navegAmazonia/"},*/
-  { title: "MatemagicaKids", desc: "Aprenda tabuada.", emoji: "✖️", category: "MATEMATICA", url: "https://alvesdealmeida.github.io/tabuadaKids/" },
-  { title: "Tipos de Textos", desc: "Gramática divertida.", emoji: "📚", category: "PORTUGUÊS", url: "https://alvesdealmeida.github.io/cidadedasPalavras/" },
-  { title: "MostraBot", desc: "Robótica educacional.", emoji: "🤖", category: "ROBÓTICA", url: "https://alvesdealmeida.github.io/mostraBot/" },
-  { title: "Código Binário", desc: "Introdução à programação.", emoji: "💻", category: "PROGRAMAÇÃO", url: "https://alvesdealmeida.github.io/joguinhoBinario_t/" },
-  /*{ title: "Navegação Amazônia - [[VERSÃO BETA]]", desc: "Pilote entre comunidades e evite obstáculos.", emoji: "🌳", category: "GEOGRAFIA", url: "https://alvesdealmeida.github.io/navegAmazonia/" },*/
-  { title: "História de Araruama", desc: "História Local [Araruama].", emoji: "🏺", category: "HISTÓRIA", url: "https://alvesdealmeida.github.io/histAraruama/" },
-
-  { title: "Expedição a Araruama", desc: "História Local [Araruama].", emoji: "🌊", category: "HISTÓRIA", url: "https://alvesdealmeida.github.io/codigoMorseAraruama/" },
-  { title: "Mestre da Tech - [[**VERSÃO BETA**]]", desc: "Teste seus conhecimentos sobre Hardware, Software e a História da Internet.", emoji: "🚀", category: "TECNOLOGIA", url: "https://alvesdealmeida.github.io/quizTecnologia/" },
-  { title: "Ditado Gráfico", desc: "Siga as coordenadas e descubra a imagem oculta no tabuleiro.", emoji: "🎨", category: "RACIOCÍNIO LÓGICO", url: "https://alvesdealmeida.github.io/ditadoGraficoMat/" },
-  { title: "Leitura & Historia", desc: "Alice no País das Maravilhas", emoji: "🕵️", category: "  PORTUGUÊS", url: "https://alvesdealmeida.github.io/leituraPort/" },
+  { title: "EducVerse 3D",       desc: "Mundo interativo 3D multidisciplinar.",                                emoji: "🌍", category: "MULTIDICIPLINAR", badge: "3D",        url: "https://alvesdealmeida.github.io/eduVerse-3D/" },
+  { title: "Cubo Mágico 3D",     desc: "Lógica e raciocínio espacial com cubo interativo.",                   emoji: "🧊", category: "LÓGICA",          badge: "3D",        url: "https://alvesdealmeida.github.io/cuboMagicoII/" },
+  { title: "MatemagicaKids",     desc: "Aprenda tabuada de forma divertida e interativa.",                    emoji: "✖️", category: "MATEMATICA",      badge: "Tabuada",   url: "https://alvesdealmeida.github.io/tabuadaKids/" },
+  { title: "Tipos de Textos",    desc: "Gramática e leitura divertida — cidade das palavras.",                emoji: "📚", category: "PORTUGUÊS",       badge: "Gramática", url: "https://alvesdealmeida.github.io/cidadedasPalavras/" },
+  { title: "MostraBot",          desc: "Robótica educacional interativa.",                                    emoji: "🤖", category: "ROBÓTICA",        badge: "Robótica",  url: "https://alvesdealmeida.github.io/mostraBot/" },
+  { title: "Código Binário",     desc: "Introdução à programação com código binário.",                        emoji: "💻", category: "PROGRAMAÇÃO",     badge: "Intro",     url: "https://alvesdealmeida.github.io/joguinhoBinario_t/" },
+  { title: "História de Araruama", desc: "Explore a história local de Araruama de forma interativa.",         emoji: "🏺", category: "HISTÓRIA",        badge: "Local",     url: "https://alvesdealmeida.github.io/histAraruama/" },
+  { title: "Expedição a Araruama", desc: "Descubra Araruama com código Morse e desafios históricos.",        emoji: "🌊", category: "HISTÓRIA",        badge: "Aventura",  url: "https://alvesdealmeida.github.io/codigoMorseAraruama/" },
+  { title: "Mestre da Tech",     desc: "Teste seus conhecimentos sobre Hardware, Software e Internet.",       emoji: "🚀", category: "TECNOLOGIA",      badge: "Quiz",      url: "https://alvesdealmeida.github.io/quizTecnologia/" },
+  { title: "Ditado Gráfico",     desc: "Siga coordenadas e descubra a imagem oculta no tabuleiro.",          emoji: "🎨", category: "RACIOCÍNIO LÓGICO", badge: "Lógica", url: "https://alvesdealmeida.github.io/ditadoGraficoMat/" },
+  { title: "Leitura & História", desc: "Alice no País das Maravilhas — leitura interativa.",                 emoji: "🕵️", category: "PORTUGUÊS",       badge: "Leitura",   url: "https://alvesdealmeida.github.io/leituraPort/" },
 ];
 
+// ── Estado ────────────────────────────────────────────────────
 let activeCategory = "Todos";
 
+function getCategories() {
+  const cats = [...new Set(games.map(g => g.category.trim()))];
+  return ["Todos", ...cats];
+}
+
+function countByCategory(cat) {
+  if (cat === "Todos") return games.length;
+  return games.filter(g => g.category.trim() === cat).length;
+}
+
+// ── Tabs ──────────────────────────────────────────────────────
 function renderTabs() {
-  const categories = ["Todos", ...new Set(games.map(g => g.category))];
-  const tabsElement = document.getElementById("tabs");
-  
-  tabsElement.innerHTML = categories.map(cat => `
-    <button class="tab ${cat === activeCategory ? 'active' : ''}" onclick="setCategory('${cat}')">
-      ${cat}
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = getCategories().map(cat => `
+    <button class="tab ${cat === activeCategory ? 'active' : ''}"
+      onclick="setCategory('${cat}')">
+      ${CAT_ICONS[cat] || ''} ${cat}
+      <span class="tab-count">${countByCategory(cat)}</span>
     </button>
   `).join('');
 }
@@ -232,44 +710,76 @@ function setCategory(cat) {
   filterGames();
 }
 
+// ── Filtro ────────────────────────────────────────────────────
 function filterGames() {
-  const q = document.getElementById("searchInput").value.toLowerCase();
+  const q = document.getElementById("searchInput").value.toLowerCase().trim();
   const filtered = games.filter(g => {
-    const matchCat = activeCategory === "Todos" || g.category === activeCategory;
-    const matchQ = g.title.toLowerCase().includes(q) || g.category.toLowerCase().includes(q);
+    const matchCat = activeCategory === "Todos" || g.category.trim() === activeCategory;
+    const matchQ   = !q || g.title.toLowerCase().includes(q) || g.desc.toLowerCase().includes(q);
     return matchCat && matchQ;
   });
   renderGames(filtered);
 }
 
+// ── Render cards ──────────────────────────────────────────────
 function renderGames(list) {
   const grid = document.getElementById("gamesGrid");
-  grid.innerHTML = list.map(g => {
-    const s = SUBJECT_STYLES[g.category] || { grad: "#ccc", btn: "#333", icon: "🎮" };
+  const lbl  = document.getElementById("count-label");
+  lbl.textContent = list.length + (list.length === 1 ? " jogo" : " jogos");
+
+  if (!list.length) {
+    grid.innerHTML = `
+      <div class="empty">
+        <span class="empty-icon">🤔</span>
+        <h3>Nenhum jogo encontrado</h3>
+        <p>Tente outro termo ou selecione outra disciplina.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map((g, i) => {
+    const cat = g.category.trim();
+    const s = SUBJECT_STYLES[g.category] || SUBJECT_STYLES[cat] || {
+      thumbGrad: "linear-gradient(135deg,#1e3a5f,#2563eb)",
+      tagTxt: "#0ea5e9", tagBg: "rgba(14,165,233,0.1)", btn: "#0ea5e9"
+    };
     return `
-    <a class="game-card" href="${g.url}" target="_blank" style="--accent:${s.btn}">
-      <div class="card-thumb" style="background-color:${s.grad}22">
-        <span class="big-emoji">${g.emoji}</span>
+    <a class="game-card" href="${g.url}" target="_blank" rel="noopener"
+       style="--accent:${s.btn}; animation-delay:${i * 0.06}s">
+
+      <div class="card-thumb" style="background:${s.thumbGrad}">
+        <span class="big-emoji" style="animation-delay:${(i * 0.25) % 2}s">${g.emoji}</span>
+        <span class="subject-badge">${g.badge || cat}</span>
+        <span class="level-tag">▶ Jogar agora</span>
       </div>
+
       <div class="card-body">
         <div class="card-title">${g.title}</div>
         <div class="card-desc">${g.desc}</div>
         <div class="card-footer">
-          <small style="color:${s.btn}; font-weight:800">${s.icon} ${g.category}</small>
-          <button class="card-btn" style="background:${s.btn}">Jogar</button>
+          <span class="card-tag" style="color:${s.tagTxt}; background:${s.tagBg}">
+            ${CAT_ICONS[cat] || '🎮'} ${cat}
+          </span>
+          <button class="card-btn" style="background:${s.btn}"
+            onclick="event.preventDefault(); window.open('${g.url}','_blank')">
+            <svg viewBox="0 0 16 16"><path d="M6 3l6 5-6 5V3z"/></svg>
+            Jogar
+          </button>
         </div>
       </div>
     </a>`;
   }).join('');
+
+  // Atualiza contadores do hero
+  document.getElementById("total-count").textContent = games.length;
+  const cats = new Set(games.map(g => g.category.trim()));
+  document.getElementById("total-cats").textContent = cats.size;
 }
 
-// Inicialização
+// ── Init ──────────────────────────────────────────────────────
 renderTabs();
 filterGames();
 </script>
-<div style="text-align: center; margin-top: 20px;">
-    <!-- Contador Simplificado -->
-    <img width="100" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://alvesdealmeida.github.io/educMenu2/&count_bg=%2379C83D&title_bg=%23555555&title=Acessos" alt="Contador de Visitas">
-</div>
+
 </body>
 </html>
