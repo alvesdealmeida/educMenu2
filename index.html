@@ -63,7 +63,7 @@
     position: absolute;
     width: 500px; height: 500px;
     border-radius: 50%;
-   background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%); 
+    background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%); 
     top: -200px; right: -100px;
     pointer-events: none;
   }
@@ -626,6 +626,24 @@ function tocarBoasVindas() {
 </footer>
 
 <script>
+(function initMatrix() {
+  const canvas = document.getElementById('matrix-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const CHARS =
+    'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン' +
+    'ァィゥェォッャュョ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>{}[]|/\\;:!@#$%^&*()+-=~`';
+
+  const FONT_SIZE = 14;
+  let cols, drops, W, H, iv;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    cols  = Math.floor(W / FONT_SIZE);
+    drops = Array.from({ length: cols }, () => Math.random() * -50);
+  }
 // ── Paleta por disciplina ─────────────────────────────────────
 const SUBJECT_STYLES = {
   "MULTIDICIPLINAR": {
@@ -689,17 +707,17 @@ const CAT_ICONS = {
 };
 
 const games = [
-  { title: "EducVerse 3D",       desc: "Mundo interativo 3D multidisciplinar.",                                emoji: "🌍", category: "MULTIDICIPLINAR", badge: "3D",        url: "https://alvesdealmeida.github.io/eduVerse-3D/" },
-  { title: "Cubo Mágico 3D",     desc: "Lógica e raciocínio espacial com cubo interativo.",                   emoji: "🧊", category: "LÓGICA",          badge: "3D",        url: "https://alvesdealmeida.github.io/cuboMagicoII/" },
-  { title: "MatemagicaKids",     desc: "Aprenda tabuada de forma divertida e interativa.",                    emoji: "✖️", category: "MATEMATICA",      badge: "Tabuada",   url: "https://alvesdealmeida.github.io/tabuadaKids/" },
-  { title: "Tipos de Textos",    desc: "Gramática e leitura divertida — cidade das palavras.",                emoji: "📚", category: "PORTUGUÊS",       badge: "Gramática", url: "https://alvesdealmeida.github.io/cidadedasPalavras/" },
-  { title: "MostraBot",          desc: "Robótica educacional interativa.",                                    emoji: "🤖", category: "ROBÓTICA",        badge: "Robótica",  url: "https://alvesdealmeida.github.io/mostraBot/" },
-  { title: "Código Binário",     desc: "Introdução à programação com código binário.",                        emoji: "💻", category: "PROGRAMAÇÃO",     badge: "Intro",     url: "https://alvesdealmeida.github.io/joguinhoBinario_t/" },
-  { title: "História de Araruama", desc: "Explore a história local de Araruama de forma interativa.",         emoji: "🏺", category: "HISTÓRIA",        badge: "Local",     url: "https://alvesdealmeida.github.io/histAraruama/" },
-  { title: "Expedição a Araruama", desc: "Descubra Araruama com código Morse e desafios históricos.",        emoji: "🌊", category: "HISTÓRIA",        badge: "Aventura",  url: "https://alvesdealmeida.github.io/codigoMorseAraruama/" },
-  { title: "Mestre da Tech",     desc: "Teste seus conhecimentos sobre Hardware, Software e Internet.",       emoji: "🚀", category: "TECNOLOGIA",      badge: "Quiz",      url: "https://alvesdealmeida.github.io/quizTecnologia/" },
-  { title: "Ditado Gráfico",     desc: "Siga coordenadas e descubra a imagem oculta no tabuleiro.",          emoji: "🎨", category: "RACIOCÍNIO LÓGICO", badge: "Lógica", url: "https://alvesdealmeida.github.io/ditadoGraficoMat/" },
-  { title: "Leitura & História", desc: "Alice no País das Maravilhas — leitura interativa.",                 emoji: "🕵️", category: "PORTUGUÊS",       badge: "Leitura",   url: "https://alvesdealmeida.github.io/leituraPort/" },
+  { title: "EducVerse 3D",       desc: "Mundo interativo 3D multidisciplinar.", emoji: "🌍", category: "MULTIDICIPLINAR", badge: "3D",        url: "https://alvesdealmeida.github.io/eduVerse-3D/" },
+  { title: "Cubo Mágico 3D",     desc: "Lógica e raciocínio espacial com cubo interativo.",  emoji: "🧊", category: "LÓGICA",          badge: "3D",        url: "https://alvesdealmeida.github.io/cuboMagicoII/" },
+  { title: "MatemagicaKids",     desc: "Aprenda tabuada de forma divertida e interativa.",    emoji: "✖️", category: "MATEMATICA",      badge: "Tabuada",   url: "https://alvesdealmeida.github.io/tabuadaKids/" },
+  { title: "Tipos de Textos",    desc: "Gramática e leitura divertida — cidade das palavras.", emoji: "📚", category: "PORTUGUÊS",       badge: "Gramática", url: "https://alvesdealmeida.github.io/cidadedasPalavras/" },
+  { title: "MostraBot",          desc: "Robótica educacional interativa.", emoji: "🤖", category: "ROBÓTICA",        badge: "Robótica",  url: "https://alvesdealmeida.github.io/mostraBot/" },
+  { title: "Código Binário",     desc: "Introdução à programação com código binário.", emoji: "💻", category: "PROGRAMAÇÃO",     badge: "Intro",     url: "https://alvesdealmeida.github.io/joguinhoBinario_t/" },
+  { title: "História de Araruama", desc: "Explore a história local de Araruama de forma interativa.", emoji: "🏺", category: "HISTÓRIA",        badge: "Local",     url: "https://alvesdealmeida.github.io/histAraruama/" },
+  { title: "Expedição a Araruama", desc: "Descubra Araruama com código Morse e desafios históricos.", emoji: "🌊", category: "HISTÓRIA",        badge: "Aventura",  url: "https://alvesdealmeida.github.io/codigoMorseAraruama/" },
+  { title: "Mestre da Tech",     desc: "Teste seus conhecimentos sobre Hardware, Software e Internet.", emoji: "🚀", category: "TECNOLOGIA",      badge: "Quiz",      url: "https://alvesdealmeida.github.io/quizTecnologia/" },
+  { title: "Ditado Gráfico",     desc: "Siga coordenadas e descubra a imagem oculta no tabuleiro.",  emoji: "🎨", category: "RACIOCÍNIO LÓGICO", badge: "Lógica", url: "https://alvesdealmeida.github.io/ditadoGraficoMat/" },
+  { title: "Leitura & História", desc: "Alice no País das Maravilhas — leitura interativa.",  emoji: "🕵️", category: "PORTUGUÊS",       badge: "Leitura",   url: "https://alvesdealmeida.github.io/leituraPort/" },
 ];
 
 // ── Estado ────────────────────────────────────────────────────
@@ -798,6 +816,7 @@ function renderGames(list) {
   const cats = new Set(games.map(g => g.category.trim()));
   document.getElementById("total-cats").textContent = cats.size;
 }
+
 
 // ── Init ──────────────────────────────────────────────────────
 renderTabs();
