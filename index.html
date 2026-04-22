@@ -823,6 +823,74 @@ function renderGames(list) {
 renderTabs();
 filterGames();
 document.addEventListener('click', tocarBoasVindas, { once: true });
+(function initMatrix() {
+  const canvas = document.getElementById('matrix-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const CHARS =
+    'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン' +
+    'ァィゥェォッャュョ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>{}[]|/\\;:!@#$%^&*()+-=~`';
+
+  const FONT_SIZE = 14;
+  let cols, drops, W, H, iv;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    cols  = Math.floor(W / FONT_SIZE);
+    drops = Array.from({ length: cols }, () => Math.random() * -50);
+  }
+
+  function draw() {
+    if (!drops) return;
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.font = FONT_SIZE + 'px monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+      const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+      const y = drops[i] * FONT_SIZE;
+
+      if (drops[i] > 1 && Math.random() > 0.95) {
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = '#ffffff';
+        ctx.shadowBlur = 8;
+      } else {
+        const b = 80 + Math.floor(Math.random() * 100);
+        ctx.fillStyle = `rgba(0,${b + 100},0,0.95)`;
+        ctx.shadowColor = '#00ff41';
+        ctx.shadowBlur = 4;
+      }
+
+      ctx.fillText(char, i * FONT_SIZE, y);
+      ctx.shadowBlur = 0;
+
+      if (y > H && Math.random() > 0.975) drops[i] = 0;
+      drops[i] += 0.5 + Math.random() * 0.5;
+    }
+  }
+
+  window.addEventListener('load', function() {
+    resize();
+    iv = setInterval(draw, 40);
+  });
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      clearInterval(iv);
+      resize();
+      iv = setInterval(draw, 40);
+    }, 150);
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearInterval(iv);
+    else { resize(); iv = setInterval(draw, 40); }
+  });
+})();
 </script>
 
 </body>
