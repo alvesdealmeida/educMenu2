@@ -52,10 +52,21 @@
     position: absolute;
     width: 500px; height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%);
+    background: #000;
+   /* background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%); */
     top: -200px; right: -100px;
     pointer-events: none;
   }
+  #matrix-canvas {
+  position: fixed;
+  /*position: absolute;*/
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+  display: block;
+}
   .hero::after {
     content: '';
     position: absolute;
