@@ -40,24 +40,14 @@
 
   /* ── HERO ─────────────────────────────────────────────────── */
   .hero {
-    background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 60%, #1a3d6e 100%);
+    /*background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 60%, #1a3d6e 100%);*/
+    background: #000;
     position: relative;
     overflow: hidden;
     padding: 14px 24px 28px;
     text-align: center;
   }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: #000;
-   /* background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%); */
-    top: -200px; right: -100px;
-    pointer-events: none;
-  }
-  #matrix-canvas {
+   #matrix-canvas {
   position: fixed;
   /*position: absolute;*/
   top: 0; left: 0;
@@ -67,6 +57,17 @@
   z-index: 0;
   display: block;
 }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+   background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%); 
+    top: -200px; right: -100px;
+    pointer-events: none;
+  }
+ 
   .hero::after {
     content: '';
     position: absolute;
