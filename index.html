@@ -430,14 +430,18 @@
 
   /* Rodapé */
   footer {
-    background: var(--navy2);
-    color: rgba(255,255,255,0.5);
+    background: rgba(21, 41, 74, 0.55);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    color: rgba(255,255,255,0.6);
     text-align: center;
     padding: 28px 24px;
     font-size: 0.82rem; font-weight: 700;
     letter-spacing: 0.04em;
+    position: relative;
+    z-index: 1;
   }
-  footer strong { color: rgba(255,255,255,0.85); }
+  footer strong { color: rgba(255,255,255,0.92); }
 
   /* ── RESPONSIVE ─────────────────────────────────────────── */
 
