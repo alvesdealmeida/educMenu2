@@ -590,6 +590,24 @@ function tocarBoasVindas() {
       <!--<a class="next-btn" href="#">🎓 Ver Educ Games III →</a> -->
     </div>
   </div>
+
+<!-- EDUC IA · Botão no Cabeçalho · cole DENTRO do <header> ou <nav> --> 
+
+<a href="https://alvesdealmeida.github.io/educIA/" 
+   target="_blank" 
+   rel="noopener" 
+   style=" background:#F5C518; 
+   color:#124820; 
+   border-radius:20px; 
+   padding:6px 14px; 
+   font-size:13px; 
+   font-weight:700; 
+   text-decoration:none; 
+   display:inline-flex; 
+   align-items:center; 
+   gap:6px; 
+   white-space:nowrap; 
+   margin-left:auto; ">🤖 eD IA</a>
 </header>
 
 <div class="wave-sep"></div>
@@ -907,6 +925,65 @@ document.addEventListener('click', tocarBoasVindas, { once: true });
   });
 })();
 </script>
+
+<!-- ═══════════════════════════════════════════════════
+     EDUC IA · Botão Flutuante
+     Cole este bloco inteiro ANTES de </body>
+     em educMenu1/index.html e educMenu2/index.html
+═══════════════════════════════════════════════════ -->
+
+<style>
+  #educ-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 58px;
+    height: 58px;
+    background: #1B6C2E;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(27, 108, 46, .45);
+    z-index: 9999;
+    text-decoration: none;
+    border: 3px solid #F5C518;
+    animation: pulseIA 2.5s infinite;
+  }
+
+  @keyframes pulseIA {
+    0%, 100% { box-shadow: 0 4px 16px rgba(27, 108, 46, .45); }
+    50%       { box-shadow: 0 4px 24px rgba(27, 108, 46, .70); }
+  }
+
+  #educ-fab-label {
+    position: fixed;
+    bottom: 90px;
+    right: 16px;
+    background: #F5C518;
+    color: #124820;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    z-index: 9999;
+    white-space: nowrap;
+    font-family: sans-serif;
+    pointer-events: none;
+  }
+</style>
+
+<div id="educ-fab-label">🤖 eD IA</div>
+
+<a  id="educ-fab"
+    href="https://alvesdealmeida.github.io/educIA/"
+    target="_blank"
+    rel="noopener"
+    title="EDUC IA – Assistente Inteligente da Plataforma EDUC">
+  🤖
+</a>
 
 </body>
 </html>
